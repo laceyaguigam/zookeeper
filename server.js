@@ -1,5 +1,8 @@
-//these two are required to set up the server to start express
+//these two are required to set up the server to start express (const express&app)
 const express = require('express');
+
+//this one sets an environmental variable (heroku uses port 80 but this allows it to use whatevers needed)
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 const { animals } = require(`./:data/animals.json`);
@@ -8,18 +11,22 @@ const { animals } = require(`./:data/animals.json`);
 //this takes req.query as an argument and filters through the animals accordingly
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
+   
     // Note that we save the animalsArray as filteredResults here:
     let filteredResults = animalsArray;
     if (query.personalityTraits) {
-      // Save personalityTraits as a dedicated array.
+     
+        // Save personalityTraits as a dedicated array.
       // If personalityTraits is a string, place it into a new array and save.
       if (typeof query.personalityTraits === 'string') {
         personalityTraitsArray = [query.personalityTraits];
       } else {
         personalityTraitsArray = query.personalityTraits;
       }
+     
       // Loop through each trait in the personalityTraits array:
       personalityTraitsArray.forEach(trait => {
+       
         // Check the trait against each animal in the filteredResults array.
         // Remember, it is initially a copy of the animalsArray,
         // but here we're updating it for each trait in the .forEach() loop.
@@ -56,8 +63,8 @@ app.get('/api/animals' , (req, res) => {
 });
 
 //to make the server listen 
-app.listen(3001, () => {
-    console.log(`API`)
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
 });
 
 
