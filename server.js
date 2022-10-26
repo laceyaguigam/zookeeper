@@ -78,6 +78,7 @@ app.get('/api/animals', (req, res) => {
     }
   });
   
+  app.post(`/api/animals`, (re, res) => {});
 
 //to make the server listen 
 app.listen(PORT, () => {
